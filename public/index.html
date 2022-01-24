@@ -7,12 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <h1>Chat App</h1>
-    </div>
+
+    <h1>CHat App</h1>
+
+    <form id="message-form">
+        <input name="message"  placeholder="Message">
+        <button >Send</button>
+        <button id="location">Send Location</button>
+    </form>
+    
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-    </script>
+    <script src="./js/chat.js"></script>
 </body>
 </html>

@@ -12,8 +12,28 @@ const publicDirectoryPath = path.join(__dirname,'/public')
 
 app.use(express.static(publicDirectoryPath))
 
-io.on('connection',()=>{
+let count =10;
+
+io.on('connection',(socket)=>{
     console.log('New WebSocter');
+
+    socket.emit('message','Welcome')
+    socket.emit('location','User Location')
+    socket.broadcast.emit('message','A new user has joined')
+
+    socket.on('sendMessage',(message,callback)=>{
+        io.emit('message',message)
+        callback('Delivered')
+    })
+
+    socket.on('disconnect',()=>{
+        io.emit('message','A user has left')
+    })
+
+    socket.on('sendLocation', (coords)=>{
+        io.emit('location', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`)
+    })
+
 })
 
 server.listen(port,()=>{
